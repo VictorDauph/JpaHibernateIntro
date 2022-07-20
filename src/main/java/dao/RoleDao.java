@@ -16,7 +16,7 @@ public class RoleDao {
     private EntityManager entityManager = SessionHelper.getEntityManager();
     Role role;
     
-    public Role findById(Long id){
+    public Role findById(long id){
         role = entityManager.find(Role.class, id);        
         return role;
     }
@@ -33,12 +33,13 @@ public class RoleDao {
         }
     }
     
-    public void updateRoleDescription(Role role, String description){
+    public void updateRoleDescription(long id_role, String description){
         EntityTransaction trans = null;
         try{
             trans= entityManager.getTransaction();
             trans.begin();
-              Role newRole = entityManager.merge(role);
+              Role roleToUpdate=findById(id_role);
+              Role newRole = entityManager.merge(roleToUpdate);
               newRole.setDescription(description);
             trans.commit();
         }catch(Exception e){

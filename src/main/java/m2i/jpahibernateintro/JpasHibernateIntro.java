@@ -16,13 +16,13 @@ public class JpasHibernateIntro {
     public static void main(String[] args) {
         
 
-        Role role1 = new Role("petit comique","fait des blagues au lieu de bosser");        
+        Role role1 = new Role("petit comique","fait des blagues nulles au lieu de bosser");        
         RoleDao roleDao= new RoleDao();
         
         roleDao.createRole(role1);
         System.out.println(roleDao.findById(  1L ) ); 
         
-        roleDao.updateRoleDescription(role1,"fait de bonnes blagues, tout en bossant");
+        roleDao.updateRoleDescription(1,"fait de bonnes blagues, tout en bossant bien");
         System.out.println(roleDao.findById(  1L ) ); 
 
     }
