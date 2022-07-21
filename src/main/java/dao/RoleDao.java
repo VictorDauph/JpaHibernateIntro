@@ -5,6 +5,7 @@
 package dao;
 
 import helper.SessionHelper;
+import java.util.List;
 import javax.persistence.*;
 import model.Role;
 /**
@@ -19,6 +20,11 @@ public class RoleDao {
     public Role findById(long id){
         role = entityManager.find(Role.class, id);        
         return role;
+    }
+    
+    public List<Role> findAll(){
+        Query findAllQuery = entityManager.createQuery("select r from Role r");
+        return findAllQuery.getResultList();
     }
     
     public void createRole(Role role){

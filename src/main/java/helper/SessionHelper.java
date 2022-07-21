@@ -16,9 +16,10 @@ public class SessionHelper {
     static EntityManager entityManager;
     
     public static EntityManager getEntityManager(){
-        EntityManagerFactory emf= Persistence.createEntityManagerFactory("test_jpa");        
+              
         
         if (entityManager==null){
+            EntityManagerFactory emf= Persistence.createEntityManagerFactory("test_jpa");  
             entityManager = emf.createEntityManager();
             
         }
