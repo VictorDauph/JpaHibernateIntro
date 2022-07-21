@@ -51,6 +51,10 @@ public class JpasHibernateIntro {
         Utilisateur utilisateur2 = new Utilisateur("Mr","MacDeletebool","Pass","Dauphin","Victor",role3);
         utilisateurDao.createUtilisateur(utilisateur2);
         
+        //utilisation du constructeur avec date de naissance
+        Utilisateur utilisateur3 = new Utilisateur("Mr","25-03-1988","MacDatebool","Pass","Dauphin","Victor",role3);
+        utilisateurDao.createUtilisateur(utilisateur3);
+        
         utilisateur1.setIdentifiant("MacBoolModified");
         System.out.println(utilisateurDao.findAll());
         

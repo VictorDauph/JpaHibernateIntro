@@ -4,7 +4,10 @@
  */
 package dao;
 
+import com.google.protobuf.TextFormat.ParseException;
 import helper.SessionHelper;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 import model.Role;
@@ -67,4 +70,6 @@ public class UtilisateurDao {
             if (trans != null) trans.rollback();
         }
     }
+    
+
 }

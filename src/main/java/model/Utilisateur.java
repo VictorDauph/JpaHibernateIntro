@@ -4,7 +4,10 @@
  */
 package model;
 
+import com.google.protobuf.TextFormat;
 import com.google.protobuf.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -85,18 +88,24 @@ public class Utilisateur {
     @JoinColumn(name = "role_id",nullable=false)
     private Role role;
 
-    public Utilisateur(String civilite, Date dateNaissance, String identifiant, String mot_passe, String nom, String prenom, Role role) {
+
+    //Constructeur avec Date
+    public Utilisateur(String civilite, String dateNaissance, String identifiant, String mot_passe, String nom, String prenom, Role role) {
         this.civilite = civilite;
         this.actif=true;
         this.marquer_effacer=false;
-        this.dateNaissance = dateNaissance;
+
         this.identifiant = identifiant;
         this.mot_passe = mot_passe;
         this.nom = nom;
         this.prenom = prenom;
         this.role = role;
+        
+        this.dateNaissance = createBirthDate(dateNaissance);
+        
+        
     }
-    
+    //Constructeur sans date
     public Utilisateur(String civilite, String identifiant, String mot_passe, String nom, String prenom, Role role) {
         this.civilite = civilite;
         this.actif=true;
@@ -113,6 +122,20 @@ public class Utilisateur {
     public String toString() {
         return String.format("utilisateur : "+ nom+" "+prenom+" "+" identifiant : "+identifiant+" role_id : "+ role.getId_role());
     }
+    
+    //stringifiedDate pattern : "dd-MM-yyyy"
+    public Date createBirthDate(String stringifiedDate){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            Date formattedDate = sdf.parse(stringifiedDate);
+            return formattedDate;
+        } catch (ParseException ex) {
+
+        }
+        return null;
+    }
+    
+
     // getters/Setters
 
     public long getId_utilisateur() {
