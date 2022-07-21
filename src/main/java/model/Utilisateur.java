@@ -9,6 +9,7 @@ import com.google.protobuf.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.*;
@@ -88,6 +89,9 @@ public class Utilisateur {
     @JoinColumn(name = "role_id",nullable=false)
     private Role role;
 
+    @OneToMany(orphanRemoval=true)
+    private List<Adresse> adresses;
+    
 
     //Constructeur avec Date
     public Utilisateur(String civilite, String dateNaissance, String identifiant, String mot_passe, String nom, String prenom, Role role) {
