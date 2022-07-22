@@ -10,10 +10,22 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.*;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 /**
@@ -89,9 +101,9 @@ public class Utilisateur {
     @JoinColumn(name = "role_id",nullable=false)
     private Role role;
 
-    @OneToMany(orphanRemoval=true)
+    @OneToMany(mappedBy = "utilisateur", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OnDelete(action=OnDeleteAction.CASCADE )
     private List<Adresse> adresses;
-    
 
     //Constructeur avec Date
     public Utilisateur(String civilite, String dateNaissance, String identifiant, String mot_passe, String nom, String prenom, Role role) {

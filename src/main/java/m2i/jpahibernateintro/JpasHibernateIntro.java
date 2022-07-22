@@ -4,10 +4,12 @@
  */
 package m2i.jpahibernateintro;
 
+import dao.AdresseDao;
 import dao.RoleDao;
 import dao.UtilisateurDao;
 import helper.SessionHelper;
 import javax.persistence.EntityManager;
+import model.Adresse;
 import model.Role;
 import model.Utilisateur;
 
@@ -21,6 +23,7 @@ public class JpasHibernateIntro {
     private static EntityManager entityManager = SessionHelper.getEntityManager();
     
     public static void main(String[] args) {
+        
         
 
         Role role1 = new Role("petit comique","fait des blagues nulles au lieu de bosser");        
@@ -38,11 +41,7 @@ public class JpasHibernateIntro {
         //System.out.println(roleDao.findById(  1 ) );
         
         System.out.println("début affichage liste");
-        /*
-        for(int i=0; i<roleDao.findAll().size(); i++){
-            System.out.println("found role "+i+" = "+roleDao.findAll().get(i) );
-        }
-        */
+
         System.out.println(roleDao.findAll());
         
         Utilisateur utilisateur1 = new Utilisateur("Mr","Macbool","Pass","Dauphin","Victor",role3);
@@ -58,8 +57,28 @@ public class JpasHibernateIntro {
         utilisateur1.setIdentifiant("MacBoolModified");
         System.out.println(utilisateurDao.findAll());
         
-        utilisateurDao.deleteUtilisateur(utilisateur2.getId_utilisateur());
+        
+        
+        Adresse adresse1 = new Adresse("01100","France",true,"av Clemenceau","Oyoyo",utilisateur1);
+        Adresse adresse2 = new Adresse("01100","France",false,"av Clemenssa","Oyoyo",utilisateur1);
+        Adresse adresse3 = new Adresse("01100","France",false,"av Clemenssb","Oyoyo",utilisateur1);
+        Adresse adresse4 = new Adresse("01100","France",true,"av Clemenss2","Oyoyo",utilisateur2);
+        
+        AdresseDao adresseDao= new AdresseDao();
+        
+        adresseDao.createAdresse(adresse1);
+        adresseDao.createAdresse(adresse2);
+        adresseDao.createAdresse(adresse3);
+        adresseDao.createAdresse(adresse4);
+        
+        System.out.println("liste adresses utilisateur 1 : "+adresseDao.findByUtilisateur(utilisateur1));  
+        System.out.println("liste adresses utilisateur 2 : "+adresseDao.findByUtilisateur(utilisateur2)); 
+        System.out.println("liste adresses utilisateur 3 : "+adresseDao.findByUtilisateur(utilisateur3)); 
+        
+        utilisateurDao.deleteUtilisateur(1);
         
         entityManager.close();
+        
+        
     }
 }
