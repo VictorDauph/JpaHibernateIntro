@@ -5,11 +5,13 @@
 package m2i.jpahibernateintro;
 
 import dao.AdresseDao;
+import dao.ProduitDao;
 import dao.RoleDao;
 import dao.UtilisateurDao;
 import helper.SessionHelper;
 import javax.persistence.EntityManager;
 import model.Adresse;
+import model.Produit;
 import model.Role;
 import model.Utilisateur;
 
@@ -24,7 +26,7 @@ public class JpasHibernateIntro {
     
     public static void main(String[] args) {
         
-        
+      /*  
 
         Role role1 = new Role("petit comique","fait des blagues nulles au lieu de bosser");        
         RoleDao roleDao= new RoleDao();
@@ -66,18 +68,47 @@ public class JpasHibernateIntro {
         
         AdresseDao adresseDao= new AdresseDao();
         
-        adresseDao.createAdresse(adresse1);
-        adresseDao.createAdresse(adresse2);
-        adresseDao.createAdresse(adresse3);
-        adresseDao.createAdresse(adresse4);
+        adresseDao.create(adresse1);
+        adresseDao.create(adresse2);
+        adresseDao.create(adresse3);
+        adresseDao.create(adresse4);
         
         System.out.println("liste adresses utilisateur 1 : "+adresseDao.findByUtilisateur(utilisateur1));  
         System.out.println("liste adresses utilisateur 2 : "+adresseDao.findByUtilisateur(utilisateur2)); 
         System.out.println("liste adresses utilisateur 3 : "+adresseDao.findByUtilisateur(utilisateur3)); 
         
         utilisateurDao.deleteUtilisateur(1);
+        */
+      
+      ProduitDao produitDao= new ProduitDao();
+      
+      Produit produit1 = new Produit("très beau","canape", (float) 5000.99,"AAA",5);
+      Produit produit2 = new Produit("très moyen","canape", (float) 4000.99,"AAB",5);
+      Produit produit3 = new Produit("très chère","cafetière", (float) 4000.99,"ABB",15);
+      produitDao.createProduit(produit1);
+      produitDao.createProduit(produit2);
+      produitDao.createProduit(produit3);
+      
+         
+        System.out.println("canapes : "+produitDao.findByNom("canape"));
+        System.out.println("très moyen : "+produitDao.findByDescription("très moyen"));
+        System.out.println("4000 balles : "+produitDao.findByPrix((float)4000.99));
+        System.out.println("4001 balles : "+produitDao.findByPrix((float)4001.00));
         
-        entityManager.close();
+      Produit produit1modif = produit1;
+      produit1modif.setDescription("vraiment très beau");
+      produit1modif.setNom("canape 2000");
+      produitDao.update(produit1modif);
+      
+        System.out.println(produitDao.findById(1));
+        
+        produitDao.deleteProduit(1);
+        
+        System.out.println(" stock max : "+ produitDao.findByMostQuantity() );
+        
+        System.out.println("ref AAB : "+ produitDao.findByReference("AAB"));
+    
+    entityManager.close();
         
         
     }

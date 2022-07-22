@@ -58,7 +58,6 @@ public class UtilisateurDao {
     
     public void deleteUtilisateur(long id){
 
-        
         EntityTransaction trans = null;
         try{
             trans= entityManager.getTransaction();
